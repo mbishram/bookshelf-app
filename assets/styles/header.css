@@ -1,4 +1,18 @@
+header {
+  margin-bottom: 2rem;
+}
+
 header pre {
   width: 100%;
   overflow: hidden;
+  line-height: 1em;
+}
+
+/* Mobile down */
+@media screen and (max-width: 600px) {
+  header pre {
+    font-size: 0.5rem;
+    width: 290px;
+    margin: 0 auto;
+  }
 }

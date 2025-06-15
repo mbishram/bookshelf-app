@@ -1,0 +1,13 @@
+section#search label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+section#search #searchBook .search-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+section#search #searchBook .search-input input {
+  flex-grow: 1;
+}
