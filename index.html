@@ -12,9 +12,21 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="assets/styles/main.css"/>
 
+  <!-- Import maps, to add alias to imports -->
+  <script type="importmap">
+    {
+      "imports": {
+        "models/": "./assets/scripts/models/",
+        "utils/": "./assets/scripts/utils/",
+        "pages/": "./assets/scripts/pages/"
+      }
+    }
+  </script>
+
   <!-- Impor script kamu di sini -->
   <!-- Lampirkan `defer` jika pemanggilan dilakukan dalam <head> -->
-  <script defer src="assets/scripts/main.js"></script>
+  <!-- Adding type="module" so import/export can be used -->
+  <script type="module" defer src="assets/scripts/main.js"></script>
 </head>
 <body>
 <div class="container">
@@ -109,7 +121,7 @@ __________               __           .__           .__   _____
           <p data-testid="bookItemYear">Tahun: 2030</p>
           <div class="button-list">
             <button data-testid="bookItemIsCompleteButton">
-              Selesai Dibaca
+              Belum Dibaca
             </button>
             <button data-testid="bookItemDeleteButton">Hapus Buku</button>
             <button data-testid="bookItemEditButton">Edit Buku</button>

@@ -1,2 +1,1 @@
-// Do your work here...
-console.log('Hello, world!');
+import "pages/index/form.js";
