@@ -16,7 +16,7 @@ export default class Book {
    * @type {string}
    * @private
    */
-  #id = crypto.randomUUID();
+  #id;
   /**
    * Private property of title
    * @type {string}
@@ -44,12 +44,14 @@ export default class Book {
 
   /**
    * Default book constructor
+   * @param {string=} data.id
    * @param {string} data.title
    * @param {string} data.author
    * @param {number} data.year
    * @param {boolean=} data.isComplete
    */
   constructor(data) {
+    this.#id = data.id || crypto.randomUUID();
     this.#title = data.title;
     this.#author = data.author;
     this.#year = data.year;
@@ -125,4 +127,43 @@ export default class Book {
     if (!isNil(data.year)) this.#year = data.year;
     if (!isNil(data.isComplete)) this.#isComplete = data.isComplete;
   }
+
+  /**
+   * Return object version of Book
+   * @return {Object.<string, any>}
+   */
+  toObject() {
+    return {
+      id: this.id,
+      title: this.title,
+      author: this.author,
+      year: this.year,
+      isComplete: this.isComplete,
+    };
+  }
+
+  /**
+   * Generate HTML element of book
+   * @returns {ChildNode}
+   */
+  generateElement() {
+    const parser = new DOMParser();
+
+    const htmlString =
+      `<div data-bookid="${this.#id}" data-testid="bookItem" class="book">
+  <h3 data-testid="bookItemTitle">${this.#title}</h3>
+  <p data-testid="bookItemAuthor">Penulis: ${this.#author}</p>
+  <p data-testid="bookItemYear">Tahun: ${this.#year}</p>
+  <div class="button-list">
+    <button data-testid="bookItemIsCompleteButton">
+      ${!this.#isComplete ? "Selesai" : "Belum"} Dibaca
+    </button>
+    <button data-testid="bookItemDeleteButton">Hapus</button>
+    <button data-testid="bookItemEditButton">Edit</button>
+  </div>
+</div>`;
+
+    return parser.parseFromString(htmlString,
+      "text/html").body.firstChild;
+  };
 }

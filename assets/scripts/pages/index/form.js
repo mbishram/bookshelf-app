@@ -1,7 +1,34 @@
 import Book from "models/book.js";
+import {serializeForm} from "utils/form.js";
 
-const book1 = new Book({year: 2020, author: "Test", title: "Test2"});
-const book2 = new Book({year: 2021, author: "Testr", title: "Test3"});
-book1.update({year: 2000, author: "Lorempi"});
-book1.isComplete = true;
-console.log("Hello, world!", book1, book2);
+/**
+ * Update form section header
+ * @param {string} text
+ */
+export const updateFormHeader = (text) => {
+  const formHeaderEl = document.querySelector("section#form > h2");
+  formHeaderEl.textContent = text;
+};
+
+/**
+ * Initialize form
+ * @param {Bookshelf} bookshelf
+ */
+const init = (bookshelf) => {
+  const formEl = document.querySelector("#bookForm");
+
+  formEl.addEventListener("submit", function(event) {
+    // Prevent reload
+    event.preventDefault();
+
+    const book = new Book(serializeForm(this));
+    bookshelf.add(book);
+
+    event.target.reset();
+    alert("Buku disimpan");
+
+    updateFormHeader("Tambah Buku");
+  });
+};
+
+export default init;

@@ -18,7 +18,9 @@
       "imports": {
         "models/": "./assets/scripts/models/",
         "utils/": "./assets/scripts/utils/",
-        "pages/": "./assets/scripts/pages/"
+        "pages/": "./assets/scripts/pages/",
+        "db/": "./assets/scripts/db/",
+        "libs/": "./assets/scripts/libs/"
       }
     }
   </script>
@@ -51,34 +53,35 @@ __________               __           .__           .__   _____
 
   <main>
     <section id="form" class="card">
-      <h2>Tambah Buku Baru</h2>
+      <h2>Tambah Buku</h2>
       <form id="bookForm" data-testid="bookForm">
         <div>
           <label for="bookFormTitle">Judul</label>
-          <input id="bookFormTitle" type="text" required
+          <input id="bookFormTitle" name="title" type="text" required
                  data-testid="bookFormTitleInput"/>
         </div>
         <div>
           <label for="bookFormAuthor">Penulis</label>
-          <input id="bookFormAuthor" type="text" required
+          <input id="bookFormAuthor" name="author" type="text" required
                  data-testid="bookFormAuthorInput"/>
         </div>
         <div>
           <label for="bookFormYear">Tahun</label>
-          <input id="bookFormYear" type="number" required
+          <input id="bookFormYear" name="year" type="number" required
                  data-testid="bookFormYearInput"/>
         </div>
         <div>
-          <label for="bookFormIsComplete">Selesai dibaca</label>
+          <label for="bookFormIsComplete">Selesai Dibaca</label>
           <input
               id="bookFormIsComplete"
+              name="isComplete"
               type="checkbox"
               data-testid="bookFormIsCompleteCheckbox"
           />
         </div>
         <button id="bookFormSubmit" type="submit"
                 data-testid="bookFormSubmitButton">
-          Masukkan Buku ke rak <span>Belum selesai dibaca</span>
+          Simpan
         </button>
       </form>
     </section>
@@ -103,38 +106,14 @@ __________               __           .__           .__   _____
 
       <div id="incompleteBookList" data-testid="incompleteBookList"
            class="book-list">
-        <div data-bookid="123123123" data-testid="bookItem" class="book">
-          <h3 data-testid="bookItemTitle">Judul Buku 1</h3>
-          <p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
-          <p data-testid="bookItemYear">Tahun: 2030</p>
-          <div class="button-list">
-            <button data-testid="bookItemIsCompleteButton">
-              Selesai Dibaca
-            </button>
-            <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-            <button data-testid="bookItemEditButton">Edit Buku</button>
-          </div>
-        </div>
-        <div data-bookid="123123123" data-testid="bookItem" class="book">
-          <h3 data-testid="bookItemTitle">Judul Buku 1</h3>
-          <p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
-          <p data-testid="bookItemYear">Tahun: 2030</p>
-          <div class="button-list">
-            <button data-testid="bookItemIsCompleteButton">
-              Belum Dibaca
-            </button>
-            <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-            <button data-testid="bookItemEditButton">Edit Buku</button>
-          </div>
-        </div>
       </div>
     </section>
 
     <section class="card">
       <h2>Selesai dibaca</h2>
 
-      <div id="completeBookList" data-testid="completeBookList">
-        <p>Tidak ada buku :(</p>
+      <div id="completeBookList" data-testid="completeBookList"
+           class="book-list">
       </div>
     </section>
   </main>
