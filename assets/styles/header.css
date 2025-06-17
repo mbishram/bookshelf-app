@@ -1,5 +1,5 @@
 header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 header pre {
@@ -11,8 +11,16 @@ header pre {
 /* Mobile down */
 @media screen and (max-width: 600px) {
   header pre {
-    font-size: 0.5rem;
-    width: 290px;
+    font-size: 0.55rem;
+    width: 310px;
     margin: 0 auto;
+  }
+}
+
+/* Under mobile down */
+@media screen and (max-width: 350px) {
+  header pre {
+    font-size: 0.4rem;
+    width: 225px;
   }
 }

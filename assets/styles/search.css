@@ -5,9 +5,21 @@ section#search label {
 
 section#search #searchBook .search-input {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
 section#search #searchBook .search-input input {
   flex-grow: 1;
+}
+
+/* Under mobile down */
+@media screen and (max-width: 350px) {
+  section#search #searchBook .search-input input {
+    width: 100%;
+  }
+
+  section#search #searchBook .search-input button {
+    width: 100%;
+  }
 }
