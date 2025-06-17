@@ -21,11 +21,19 @@ const init = (bookshelf) => {
     // Prevent reload
     event.preventDefault();
 
-    const book = new Book(serializeForm(this));
-    bookshelf.add(book);
+    const values = serializeForm(this);
+
+    const isEdit = !!values.id;
+
+    if (!isEdit) {
+      const book = new Book(values);
+      bookshelf.add(book);
+    } else {
+      bookshelf.update(values);
+    }
 
     event.target.reset();
-    alert("Buku disimpan");
+    alert(`Buku berhasil di${!isEdit ? "tambah" : "edit"}!`);
 
     updateFormHeader("Tambah Buku");
   });

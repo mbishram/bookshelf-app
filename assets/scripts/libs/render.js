@@ -1,4 +1,5 @@
 import Bookshelf from "db/bookshelf.js";
+import bookInit from "pages/index/book.js";
 
 /**
  * Render event name
@@ -44,6 +45,9 @@ const init = (bookshelf) => {
     // Render an empty message if either incomplete or complete list empty.
     if (!isIncompleteBookExist) incompleteBookListEl.innerHTML = emptyHTMLString;
     if (!isCompleteBookExist) completeBookListEl.innerHTML = emptyHTMLString;
+
+    // Init book
+    bookInit(bookshelf);
   });
 
   // First render after event listener added

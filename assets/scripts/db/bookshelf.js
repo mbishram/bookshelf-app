@@ -111,6 +111,39 @@ export default class Bookshelf {
   }
 
   /**
+   * Return book with `id`
+   * @param {string} id
+   * @return {Book}
+   */
+  get(id) {
+    return this.#data.find((book) => book.id === id);
+  }
+
+  /**
+   * Delete book with `id`
+   * @param {string} id
+   */
+  delete(id) {
+    const deleteIndex = this.#data.findIndex((book) => book.id === id);
+    this.#data.splice(deleteIndex, 1);
+
+    Bookshelf.render();
+  }
+
+  /**
+   * Update book
+   * @param {string} data.id
+   * @param {string} data.title
+   * @param {string} data.author
+   * @param {number} data.year
+   * @param {boolean} data.isComplete
+   */
+  update(data) {
+    const {id, ...values} = data;
+    this.get(data.id).update(values);
+  }
+
+  /**
    * Call render book event
    */
   static render() {

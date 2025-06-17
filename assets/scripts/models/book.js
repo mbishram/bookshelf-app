@@ -1,6 +1,7 @@
 // Unnecessarily complex. I just want to make it as complete as I possibly can.
 
 import {isNil} from "utils/lang.js";
+import Bookshelf from "db/bookshelf.js";
 
 /**
  * Book class model
@@ -110,6 +111,8 @@ export default class Book {
    */
   set isComplete(value) {
     this.#isComplete = value;
+
+    Bookshelf.render();
   }
 
   // Public method
@@ -126,6 +129,8 @@ export default class Book {
     if (!isNil(data.author)) this.#author = data.author;
     if (!isNil(data.year)) this.#year = data.year;
     if (!isNil(data.isComplete)) this.#isComplete = data.isComplete;
+
+    Bookshelf.render();
   }
 
   /**
@@ -163,6 +168,7 @@ export default class Book {
   </div>
 </div>`;
 
+    // Convert HTML string to element and return them
     return parser.parseFromString(htmlString,
       "text/html").body.firstChild;
   };
