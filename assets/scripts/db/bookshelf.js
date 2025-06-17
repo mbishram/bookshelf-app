@@ -1,4 +1,4 @@
-import {RenderBooksEvent} from "libs/render.js";
+import {RENDER_BOOKS_EVENT_NAME} from "libs/render.js";
 import Book from "models/book.js";
 
 /**
@@ -42,22 +42,6 @@ export default class Bookshelf {
   }
 
   /**
-   * Return incomplete books
-   * @returns {Book[]}
-   */
-  get incomplete() {
-    return this.#data.filter((book) => !book.isComplete);
-  }
-
-  /**
-   * Return complete books
-   * @returns {Book[]}
-   */
-  get complete() {
-    return this.#data.filter((book) => book.isComplete);
-  }
-
-  /**
    * STORAGE_KEY static constant
    * @readonly
    * @returns {string}
@@ -98,9 +82,49 @@ export default class Bookshelf {
   }
 
   /**
+   * Search books with `query` and render them
+   * @param query
+   */
+  search(query) {
+    // If empty query, render all
+    if (!query) {
+      Bookshelf.render();
+      return;
+    }
+
+    const filteredData = this.#data.filter(
+      (book) => book.title.toLowerCase().includes(query.toLowerCase()));
+
+    // Show search summary
+    const searchSummaryEl = document.querySelector("#searchSummary");
+    searchSummaryEl.classList.remove("d-none");
+
+    // Set search summary count
+    const searchSummaryCountEl = document.querySelector(
+      "#searchSummary p > span");
+    searchSummaryCountEl.innerText = filteredData.length;
+
+    // Call render event with filtered data
+    const event = new CustomEvent(RENDER_BOOKS_EVENT_NAME,
+      {detail: filteredData});
+    dispatchEvent(event);
+  }
+
+  /**
    * Call render book event
    */
   static render() {
-    dispatchEvent(RenderBooksEvent);
+    // Hide search summary
+    const searchSummaryEl = document.querySelector("#searchSummary");
+    searchSummaryEl.classList.add("d-none");
+
+    // Reset search summary count
+    const searchSummaryCountEl = document.querySelector(
+      "#searchSummary p > span");
+    searchSummaryCountEl.innerText = "0";
+
+    // Call render event
+    const event = new Event(RENDER_BOOKS_EVENT_NAME);
+    dispatchEvent(event);
   }
 }

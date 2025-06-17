@@ -91,12 +91,16 @@ __________               __           .__           .__   _____
       <form id="searchBook" data-testid="searchBookForm">
         <label for="searchBookTitle">Judul</label>
         <div class="search-input">
-          <input id="searchBookTitle" type="text"
+          <input id="searchBookTitle" name="query" type="text"
                  data-testid="searchBookFormTitleInput"/>
           <button id="searchSubmit" type="submit"
                   data-testid="searchBookFormSubmitButton">
             Cari
           </button>
+        </div>
+        <div id="searchSummary" class="d-none">
+          <button id="resetSearch" type="reset">Reset</button>
+          <p>Terdapat <span>0</span> buku ditemukan!</p>
         </div>
       </form>
     </section>
@@ -106,6 +110,7 @@ __________               __           .__           .__   _____
 
       <div id="incompleteBookList" data-testid="incompleteBookList"
            class="book-list">
+        <p>Tidak ada buku :(</p>
       </div>
     </section>
 
@@ -114,6 +119,7 @@ __________               __           .__           .__   _____
 
       <div id="completeBookList" data-testid="completeBookList"
            class="book-list">
+        <p>Tidak ada buku :(</p>
       </div>
     </section>
   </main>

@@ -13,6 +13,14 @@ section#search #searchBook .search-input input {
   flex-grow: 1;
 }
 
+section#search #searchSummary {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* Under mobile down */
 @media screen and (max-width: 350px) {
   section#search #searchBook .search-input input {

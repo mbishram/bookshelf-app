@@ -7,20 +7,18 @@ import Bookshelf from "db/bookshelf.js";
 export const RENDER_BOOKS_EVENT_NAME = "RENDER_EVENT";
 
 /**
- * Render event
- * @type {Event}
- */
-export const RenderBooksEvent = new Event(RENDER_BOOKS_EVENT_NAME);
-
-/**
  * Initialize event
  * @param {Bookshelf} bookshelf
  */
 const init = (bookshelf) => {
-  const emptyEl = document.createElement("p");
-  emptyEl.innerText = "Tidak ada buku :(";
+  const emptyHTMLString = "<p>Tidak ada buku :(</p>";
 
-  addEventListener(RENDER_BOOKS_EVENT_NAME, () => {
+  addEventListener(RENDER_BOOKS_EVENT_NAME, (event) => {
+    /**
+     * @type {Book[]}
+     */
+    const books = event.detail || bookshelf.data;
+
     const incompleteBookListEl = document.querySelector("#incompleteBookList");
     const completeBookListEl = document.querySelector("#completeBookList");
 
@@ -28,25 +26,24 @@ const init = (bookshelf) => {
     incompleteBookListEl.innerText = "";
     completeBookListEl.innerText = "";
 
-    // Render incomplete section
-    const incompleteBook = bookshelf.incomplete;
-    if (incompleteBook.length) {
-      incompleteBook.forEach((book) => {
-        incompleteBookListEl.appendChild(book.generateElement());
-      });
-    } else {
-      incompleteBookListEl.appendChild(emptyEl);
-    }
+    let isIncompleteBookExist = false;
+    let isCompleteBookExist = false;
 
-    // Render complete section
-    const completeBook = bookshelf.complete;
-    if (completeBook.length) {
-      completeBook.forEach((book) => {
-        completeBookListEl.appendChild(book.generateElement());
-      });
-    } else {
-      completeBookListEl.appendChild(emptyEl);
-    }
+    books.forEach((book) => {
+      const bookEl = book.generateElement();
+
+      if (!book.isComplete) {
+        incompleteBookListEl.appendChild(bookEl);
+        isIncompleteBookExist = true;
+      } else {
+        completeBookListEl.appendChild(bookEl);
+        isCompleteBookExist = true;
+      }
+    });
+
+    // Render an empty message if either incomplete or complete list empty.
+    if (!isIncompleteBookExist) incompleteBookListEl.innerHTML = emptyHTMLString;
+    if (!isCompleteBookExist) completeBookListEl.innerHTML = emptyHTMLString;
   });
 
   // First render after event listener added
